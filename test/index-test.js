@@ -1,6 +1,8 @@
 describe('Map/reduce lab', () => {
   describe('Updating the API', function () {
     it('should have an `issuesWithUpdatedApiUrl` array', function () {
+        this.timeout(0);
+
       expect(issuesWithUpdatedApiUrl).toBeAn('array');
     });
 
