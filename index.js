@@ -9000,3 +9000,35 @@ const issues = [
     "url": "https://api.github.com/repos/learn-co-curriculum/js-donut-lab/issues/2"
   }
 ];
+
+var issuesWithUpdatedApiUrl=issues.map(function(issue) {
+  
+  return Object.assign({}, issue, {url:issue["url"].replace("api.github.com","api-v2.github.com")});
+
+})
+var commentCountAcrossIssues=issues.map(function(issue){
+
+return issue['comments_count']
+  }).reduce(function(x,y){
+     return x+y
+},0)
+  var openIssues=issues.map(function(issue){
+  if(issue['state']=="open") {return issue}
+ 
+  }).filter(function(n){ return n != undefined });
+
+  // var nonAutomaticIssues=issues.map(function(issue){
+  //   if(issue['body'].includes('automatically created by learn.co') ){return issue}
+  // }).filter(function(n){ return n !== undefined }); working but not passing the test
+  var nonAutomaticIssues = issues.reduce((all, issue) => {
+  var is_Automatic = issue["body"].includes('automatically created by learn.co');
+
+  if (!is_Automatic) {all.push(issue); }
+
+  return all;
+}, []);
+
+    var html= nonAutomaticIssues.map(function(issue){ 
+   return '<tr> <td>'+issue["body"]+'</td> <td>'+issue["created_at"]+'</td><td>'+issue["state"]+'</td></tr>'
+  }).join('');
+   document.getElementById('results').innerHTML = html
